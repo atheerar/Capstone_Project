@@ -2,14 +2,14 @@ Capstone Project
 -----
 
 
-###Casting Agency
+### Casting Agency
 
 The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies. You are an Executive Producer within the company and are
 
 ------------
 
 
-###Casting Agency Specifications
+### Casting Agency Specifications
 
 ###### Models:
 - Movies with attributes title and release date
