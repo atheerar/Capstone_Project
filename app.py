@@ -19,7 +19,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def retrieve_first():
-        return " Welcome to the Casting Agency Project "
+        return " Welcome to my last project 'Casting Agency' ... I am very happy that you visit us "
 
 # ----------------------------------------------------------------------------
 # -------------------------      Route Actors  -------------------------------
