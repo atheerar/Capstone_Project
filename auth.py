@@ -5,11 +5,9 @@ from jose import jwt
 from urllib.request import urlopen
 import os
 
-
 AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
 ALGORITHMS = os.environ.get('ALGORITHMS')
 API_AUDIENCE = os.environ.get('API_AUDIENCE')
-
 
 AUTH0_DOMAIN = 'a-theer.us.auth0.com'
 ALGORITHMS = ['RS256']
@@ -20,7 +18,6 @@ class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
-
 
 
 def get_token_auth_header():
@@ -68,7 +65,6 @@ def check_permissions(permission, payload):
             'description': 'Permission not found.'
         }, 401)
     return True
-
 
 
 def verify_decode_jwt(token):
@@ -124,6 +120,7 @@ def verify_decode_jwt(token):
         'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
     }, 400)
+
 
 def requires_auth(permission=''):
     def requires_auth_decorator(f):

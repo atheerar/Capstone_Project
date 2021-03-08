@@ -11,12 +11,21 @@ def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
     # db_insert_all()
-    CORS(app)  
+    CORS(app)
+
+# ----------------------------------------------------------------------------
+# -------------------------      Route      ----------------------------------
+# ----------------------------------------------------------------------------
 
     @app.route('/')
     def retrieve_first():
         return " Welcome to the Casting Agency Project "
 
+# ----------------------------------------------------------------------------
+# -------------------------      Route Actors  -------------------------------
+# ----------------------------------------------------------------------------
+
+    # GET Actors
     @app.route('/actors', methods=['GET'])
     @requires_auth('get:actors')
     def get_actors(self):
@@ -28,18 +37,7 @@ def create_app(test_config=None):
             'actors': [actor.format() for actor in selection]
         }), 200
 
-
-    @app.route('/movies', methods=['GET'])
-    @requires_auth('get:movies')
-    def get_movies(self):
-        selection = Movie.query.order_by(Movie.id).all()
-        if len(selection) == 0:
-            abort(404)
-        return jsonify({
-            'success': True,
-            'movies': [movie.format() for movie in selection]
-        }), 200
-
+    # POST Actors
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actors')
     def post_actor(self):
@@ -58,38 +56,13 @@ def create_app(test_config=None):
                 'created': actor.id
             }), 200
 
-        except:
+        except BaseException:
             db.session.rollback()
             abort(422)
         finally:
             db.session.close()
 
-    # POST /movies create a new movie
-    @app.route('/movies', methods=['POST'])
-    @requires_auth('post:movies')
-    def post_movie(self):
-        body = request.get_json()
-        new_title = body.get('title', None)
-        new_release_date = body.get('release_date', None)
-
-        if ((new_title is None) or (new_release_date is None)):
-            abort(422)
-        try:
-            movie = Movie(title=new_title, release_date=new_release_date)
-            movie.insert()
-
-            return jsonify({
-                'success': True,
-                'created': movie.id
-            }), 200
-
-        except:
-            db.session.rollback()
-            abort(422)
-        finally:
-            db.session.close()
-
-    # PATCH /actors/<id> update an actor
+    # PATCH Actors
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
     @requires_auth('patch:actors')
     def patch_actor(self, actor_id):
@@ -119,46 +92,13 @@ def create_app(test_config=None):
                 'actor': actor.format()
             }), 200
 
-        except:
+        except BaseException:
             db.session.rollback()
             abort(422)
         finally:
             db.session.close()
 
-    # PATCH /movies/<id> update a movie
-    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-    @requires_auth('patch:movies')
-    def patch_movie(self, movie_id):
-        movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
-
-        if movie is None:
-            abort(404)
-        body = request.get_json()
-        new_title = body.get('title', None)
-        new_release_date = body.get('release_date', None)
-
-        if ((new_title is None) and (new_release_date is None)):
-            abort(422)
-        try:
-            if new_title is not None:
-                movie.title = new_title
-            if new_release_date is not None:
-                movie.release_date = new_release_date
-
-            movie.update()
-
-            return jsonify({
-                'success': True,
-                'movie': movie.format()
-            }), 200
-
-        except:
-            db.session.rollback()
-            abort(422)
-        finally:
-            db.session.close()
-
-    # Delete /actors/<id> delete an actor
+    # DELETE Actors
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
     def delete_actor(self, actor_id):
@@ -175,36 +115,104 @@ def create_app(test_config=None):
                 'success': True,
                 'delete': actor.id
             }), 200
-        except:
+        except BaseException:
             db.session.rollback()
             abort(422)
         finally:
             db.session.close()
 
-    # Delete /movies/<id> delete a movie
+# ----------------------------------------------------------------------------
+# -------------------------      Route Actors  -------------------------------
+# ----------------------------------------------------------------------------
+    # GET Movies
+    @app.route('/movies', methods=['GET'])
+    @requires_auth('get:movies')
+    def get_movies(self):
+        selection = Movie.query.order_by(Movie.id).all()
+        if len(selection) == 0:
+            abort(404)
+        return jsonify({
+            'success': True,
+            'movies': [movie.format() for movie in selection]
+        }), 200
+
+    # POST Movies
+    @app.route('/movies', methods=['POST'])
+    @requires_auth('post:movies')
+    def post_movie(self):
+        body = request.get_json()
+        new_title = body.get('title', None)
+        new_release_date = body.get('release_date', None)
+
+        if ((new_title is None) or (new_release_date is None)):
+            abort(422)
+        try:
+            movie = Movie(title=new_title, release_date=new_release_date)
+            movie.insert()
+
+            return jsonify({
+                'success': True,
+                'created': movie.id
+            }), 200
+
+        except BaseException:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
+
+    # PATCH Movies
+    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+    @requires_auth('patch:movies')
+    def patch_movie(self, movie_id):
+        movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
+        if movie is None:
+            abort(404)
+        body = request.get_json()
+        new_title = body.get('title', None)
+        new_release_date = body.get('release_date', None)
+        if ((new_title is None) and (new_release_date is None)):
+            abort(422)
+        try:
+            if new_title is not None:
+                movie.title = new_title
+            if new_release_date is not None:
+                movie.release_date = new_release_date
+            movie.update()
+            return jsonify({
+                'success': True,
+                'movie': movie.format()
+            }), 200
+        except BaseException:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
+
+    # Delete Movies
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movie(self, movie_id):
         try:
             movie = Movie.query.filter(
                 Movie.id == movie_id).one_or_none()
-
             if movie is None:
                 abort(404)
-
             movie.delete()
-
             return jsonify({
                 'success': True,
                 'delete': movie.id
             }), 200
-        except:
+        except BaseException:
             db.session.rollback()
             abort(422)
         finally:
             db.session.close()
- 
-    # Error Handling
+
+# ----------------------------------------------------------------------------
+# -------------------------    Error Handling  -------------------------------
+# ----------------------------------------------------------------------------
+
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
@@ -244,8 +252,7 @@ def create_app(test_config=None):
             "error": 500,
             "message": "internal server error"
         }), 500
-    
-    # error handler for AuthError
+
     @app.errorhandler(AuthError)
     def authentication_error(ex):
         return jsonify({
@@ -253,12 +260,10 @@ def create_app(test_config=None):
             "error": ex.status_code,
             "message": ex.error['code']
         }), ex.status_code
-
     return app
 
 
 app = create_app()
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

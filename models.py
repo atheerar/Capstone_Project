@@ -17,7 +17,6 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
     # db.create_all()
 
-
 # def db_insert_all():
 #     db.drop_all()
 #     db.create_all()
@@ -27,6 +26,9 @@ def setup_db(app, database_path=database_path):
 #     add_movie.insert()
 #     db.session.commit()
 
+# ----------------------------------------------------------------------------
+# ----------------------    Actor class     ----------------------------------
+# ----------------------------------------------------------------------------
 
 
 class Actor(db.Model):
@@ -60,6 +62,9 @@ class Actor(db.Model):
     def update(self):
         db.session.commit()
 
+# ----------------------------------------------------------------------------
+# ----------------------    Movie class     ----------------------------------
+# ----------------------------------------------------------------------------
 
 
 class Movie(db.Model):
@@ -68,7 +73,6 @@ class Movie(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(Date)
-
 
     def __init__(self, title, release_date):
         self.title = title
