@@ -131,13 +131,11 @@ The Casting Agency models a company that is responsible for creating movies and 
 
 - DELETE /movies
 
-
-
-    {
+```python{
       "delete": 1, 
       "success": true
     }
-    
+```    
 
 ------------
 
