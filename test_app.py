@@ -3,16 +3,18 @@ import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
 from app import create_app
-from models import setup_db, Actor, Movie, db_insert_all
+from models import setup_db, Actor, Movie
+# from models import setup_db, Actor, Movie, db_insert_all
 
 class CastingAgencyTestCase(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app()
         self.client = self.app.test_client
+        # self.database_path = "postgres:///m_db"
         self.database_path = "postgres://qmuctnxsjzynmq:caaa92f73f104bc8eaf93ab5b71a13adec2d14616f4eac78575a109a0a6e4896@ec2-52-70-67-123.compute-1.amazonaws.com:5432/d5o744grfo2435"
         setup_db(self.app, self.database_path)
-        db_insert_all()
+        # db_insert_all()
 
         with self.app.app_context():
             self.db = SQLAlchemy()

@@ -3,13 +3,14 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from auth import AuthError, requires_auth
-from models import setup_db, db_insert_all,Actor, Movie, db
+from models import setup_db, Actor, Movie, db
+# from models import setup_db, db_insert_all,Actor, Movie, db
 
 
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
-    db_insert_all()
+    # db_insert_all()
     CORS(app)  
 
     @app.route('/')

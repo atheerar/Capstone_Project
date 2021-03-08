@@ -1,12 +1,12 @@
 from sqlalchemy import Column, String, create_engine, Integer, Date
 from flask_sqlalchemy import SQLAlchemy
-# from config import database_params
 from datetime import date
 import json
 import os
 
 
 database_path = "postgres://qmuctnxsjzynmq:caaa92f73f104bc8eaf93ab5b71a13adec2d14616f4eac78575a109a0a6e4896@ec2-52-70-67-123.compute-1.amazonaws.com:5432/d5o744grfo2435"
+# database_path = "postgres:///m_db"
 db = SQLAlchemy()
 
 
@@ -18,14 +18,14 @@ def setup_db(app, database_path=database_path):
     # db.create_all()
 
 
-def db_insert_all():
-    db.drop_all()
-    db.create_all()
-    add_actor = Actor('atheer', 'Female', '20')
-    add_movie = Movie('hloe word ', date.today())
-    add_actor.insert()
-    add_movie.insert()
-    db.session.commit()
+# def db_insert_all():
+#     db.drop_all()
+#     db.create_all()
+#     add_actor = Actor('atheer', 'Female', '20')
+#     add_movie = Movie('hloe word ', date.today())
+#     add_actor.insert()
+#     add_movie.insert()
+#     db.session.commit()
 
 
 
