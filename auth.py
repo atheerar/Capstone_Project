@@ -6,15 +6,14 @@ from urllib.request import urlopen
 import os
 
 
-# get auth0 params from the envieonmental variables if available
-# AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
-# ALGORITHMS = os.environ.get('ALGORITHMS')
-# API_AUDIENCE = os.environ.get('API_AUDIENCE')
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
+ALGORITHMS = os.environ.get('ALGORITHMS')
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
 
 
 AUTH0_DOMAIN = 'a-theer.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'MY_FSND'
+API_AUDIENCE = 'capstone-atheer'
 
 
 class AuthError(Exception):

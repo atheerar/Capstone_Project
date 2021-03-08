@@ -6,7 +6,7 @@ import json
 import os
 
 
-database_path = "postgres:///movie_db"
+database_path = "postgres://qmuctnxsjzynmq:caaa92f73f104bc8eaf93ab5b71a13adec2d14616f4eac78575a109a0a6e4896@ec2-52-70-67-123.compute-1.amazonaws.com:5432/d5o744grfo2435"
 db = SQLAlchemy()
 
 
