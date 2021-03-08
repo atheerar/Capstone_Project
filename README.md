@@ -50,8 +50,7 @@ The Casting Agency models a company that is responsible for creating movies and 
 - The flask app is being run locally http://127.0.0.1:5000/ 
 
 - GET /actors
-
-
+```python
     {
       "actors": [
         {
@@ -63,18 +62,16 @@ The Casting Agency models a company that is responsible for creating movies and 
       ], 
       "success": true
     }
-	
+```
 - POST /actors
-
-
+```python
     {
       "created": 2, 
       "success": true
     }
-
+```
 - PATCH /actors
-
-
+```python
     {
       "actor": {
         "age": 20, 
@@ -84,8 +81,9 @@ The Casting Agency models a company that is responsible for creating movies and 
       }, 
       "success": true
     }
-
+```
 - DELETE /actors
+```python
 
 
 
@@ -93,6 +91,7 @@ The Casting Agency models a company that is responsible for creating movies and 
       "delete": 1, 
       "success": true
     }
+```
 
 - GET /movies
 
@@ -111,14 +110,15 @@ The Casting Agency models a company that is responsible for creating movies and 
         }
 
 - POST /movies
-
-
+```python
 
     {
       "created": 2, 
       "success": true
     }
+```
     - PATCH /movies
+```python
     {
       "movie": {
         "id": 1, 
@@ -127,15 +127,16 @@ The Casting Agency models a company that is responsible for creating movies and 
       }, 
       "success": true
     }
+```
     
 
 - DELETE /movies
-
-```python{
+```python
+    {
       "delete": 1, 
       "success": true
     }
-```    
+```
 
 ------------
 
@@ -156,8 +157,8 @@ The Casting Agency models a company that is responsible for creating movies and 
 ------------
 
 
-###Authors
+### Authors
 * Atheer
 
-###Acknowledgments
+### Acknowledgments
 * The team Udacity
